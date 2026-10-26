@@ -1,8 +1,7 @@
 <h1>ExpNo 1 :Developing AI Agent with PEAS Description</h1>
-<h3>Name:Kayalvizhi.V</h3>
-<h3>Register Number/Staff Id: 212225040182 / TSML006</h3>
-<h4>Date : 15/10/2026</h4>
-
+<h3>Name: Kayalvizhi.V</h3>
+<h3>Register Number: 212225040182</h3>
+<h3>Date: 15/10/2026</h3>
 
 <h3>AIM:</h3>
 <br>
@@ -42,77 +41,54 @@
 <h3>STEP 5:</h3>
 <p>Measure the performance parameters: For each treatment performance incremented, for each movement performance decremented</p>
 
-## Programe
+
+## Program: 
 ```
 import random
-
 class MedicinePrescribingAgent:
     def __init__(self):
-        self.location = "A"
-        self.temperature = {
-            "A": random.randint(97, 103),
-            "B": random.randint(97, 103)
+        self.rooms = {
+            "Room 1": random.uniform(97.0, 102.5),
+            "Room 2": random.uniform(97.0, 102.5)
         }
         self.performance = 0
-
-    def move_left(self):
-        if self.location == "B":
-            self.location = "A"
-
-    def move_right(self):
-        if self.location == "A":
-            self.location = "B"
-
-    def check_temperature(self):
-        temp = self.temperature[self.location]
-        print(f"Room {self.location} Temperature: {temp} F")
-
-        if temp > 98.5:
-            self.prescribe_medicine()
+        self.current_room = random.choice(list(self.rooms.keys()))
+    def sense(self):
+        """Sense current room and patient's temperature."""
+        temperature = self.rooms[self.current_room]
+        print(f"\nAgent is in {self.current_room}")
+        print(f"Patient Temperature: {temperature:.1f}°F")
+        return temperature
+    def prescribe_medicine(self, temperature):
+        """Treat patient if temperature is above 98.5°F."""
+        if temperature > 98.5:
+            print("Patient has fever.")
+            print("Medicine Prescribed.")
+            self.performance += 1
         else:
             print("Patient is healthy.")
-
-    def prescribe_medicine(self):
-        print(f"Medicine prescribed in Room {self.location}")
-        self.performance += 10
-        self.temperature[self.location] = 98.0
-
-    def perform_action(self, action):
-        if action == "left":
-            self.performance -= 1
-            self.move_left()
-        elif action == "right":
-            self.performance -= 1
-            self.move_right()
-        elif action == "check":
-            self.check_temperature()
-        else:
-            print("Invalid action")
-
-    def print_status(self):
-        print("Current Location:", self.location)
-        print("Performance Measure:", self.performance)
-        print("Patient Temperatures:", self.temperature)
-        print("-" * 40)
-
-
+            print("No medicine required.")
+    def move(self):
+        """Move to the other room."""
+        previous_room = self.current_room
+        self.current_room = "Room 2" if self.current_room == "Room 1" else "Room 1"
+        print(f"\nMoving from {previous_room} to {self.current_room}")
+        self.performance -= 1
+    def run(self):
+        print("=== Medicine Prescribing Agent ===")
+        temperature = self.sense()
+        self.prescribe_medicine(temperature)
+        self.move()
+        temperature = self.sense()
+        self.prescribe_medicine(temperature)
+        print("\nFinal Performance:", self.performance)
 agent = MedicinePrescribingAgent()
-
-agent.perform_action("check")
-agent.print_status()
-
-agent.perform_action("right")
-agent.perform_action("check")
-agent.print_status()
-
-agent.perform_action("left")
-agent.perform_action("check")
-agent.print_status()
+agent.run()
 ```
-## Output
 
-<img width="1410" height="682" alt="Screenshot 2026-10-15 103016" src="https://github.com/user-attachments/assets/3b89ce56-4aed-4f66-be1d-5d8d9560cc1d" />
+## Output: 
+<img width="366" height="336" alt="Screenshot 2026-10-26 082004" src="https://github.com/user-attachments/assets/6aca39f0-434f-4655-959c-10637945fd2f" />
 
+## Rresult
 
-## Result
-Thus, the Medicine Prescribing AI Agent was successfully developed using the PEAS description to identify patients with fever, prescribe medicine, and calculate the performance measure based on treatment and movement.
+Thus the Developing AI Agent with PEAS Description was implemented using python programming.
